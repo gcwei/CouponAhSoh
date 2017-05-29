@@ -161,13 +161,13 @@ app.get('/webhook', (req, res) => {
 });
 
 // Message handler
-app.post('/webhook', (req, res) => {
+app.post("/webhook", function (req, res) {
   // Parse the Messenger payload
   // See the Webhook reference
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
   console.log('data: yo1');
   //const data = req.body;
-  //console.log('data: yo2');
+  console.log('data:' + req.body);
   
   if (req.body.object == "page") {
     console.log('data: yo3');

@@ -92,7 +92,7 @@ const findOrCreateSession = (fbid) => {
     if (sessions[k].fbid === fbid) {
       // Yep, got it!
       sessionId = k;
-      console.log('got it: ' + sessionId.fbid + ' context: ' + sessionId.context);
+      console.log('got it: ' + sessions[sessionId].fbid + ' context: ' + sessions[sessionId].context);
     }
   });
   if (!sessionId) {
@@ -178,8 +178,6 @@ app.post("/webhook", function (req, res) {
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
   
   //const data = req.body;
-  console.log('data:' + req.body);
-  
   if (req.body.object == "page") {
     
     req.body.entry.forEach(entry => {
@@ -195,7 +193,7 @@ app.post("/webhook", function (req, res) {
           // We retrieve the user's current session, or create one if it doesn't exist
           // This is needed for our bot to figure out the conversation history
 
-          const sessionId = findOrCreateSession(sender);
+          const sessionid = findOrCreateSession(sender);
 
           // We retrieve the message content
           const {text, attachments} = event.message;
@@ -210,8 +208,8 @@ app.post("/webhook", function (req, res) {
             // Let's forward the message to the Wit.ai Bot Engine
             // This will run all actions until our bot has nothing left to do
             
-            console.log('whats the fbid: ' +  sessions[sessionId].fbid);
-            console.log('whats the context: ' + sessions[sessionId].context);
+            console.log('whats the fbid: ' +  sessions[sessionid].fbid);
+            console.log('whats the context: ' + sessions[sessionid].context);
             
             wit.runActions(
               sessionId, // the user's current session

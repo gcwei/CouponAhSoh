@@ -1,0 +1,24 @@
+{
+  "name": "couponahsoh",
+  "version": "1.0.0",
+  "description": "give me coupon. lai!",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gcwei/couponahsoh/tree/master"
+  },
+  "keywords": [
+    "event"
+  ],
+  "author": "GCW",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "mongoose": "^4.10.2",
+    "node-fetch": "^1.7.0",
+    "node-wit": "^4.2.0"
+  }
+}

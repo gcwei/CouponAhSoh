@@ -166,14 +166,18 @@ app.post('/webhook', (req, res) => {
   // See the Webhook reference
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
   console.log('data: yo1');
-  const data = req.body;
-  console.log('data: yo2');
+  //const data = req.body;
+  //console.log('data: yo2');
   
-  if (data.object === 'page') {
+  if (req.body.object == "page") {
     console.log('data: yo3');
-    data.entry.forEach(entry => {
+    
+    req.body.entry.forEach(entry => {
+      console.log('data: yo5');
       entry.messaging.forEach(event => {
+        console.log('data: yo6');
         if (event.message && !event.message.is_echo) {
+          console.log('data: yo7');
           // Yay! We got a new message!
           // We retrieve the Facebook user ID of the sender
           const sender = event.sender.id;
@@ -193,7 +197,7 @@ app.post('/webhook', (req, res) => {
             .catch(console.error);
           } else if (text) {
             // We received a text message
-
+            console.log('data: yo11');
             // Let's forward the message to the Wit.ai Bot Engine
             // This will run all actions until our bot has nothing left to do
             wit.runActions(

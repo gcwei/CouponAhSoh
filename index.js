@@ -142,17 +142,17 @@ const actions = {
       
       console.log('ctype:' + ctype + ' | ctype1: ' + ctype1);
       
-      if(ctype == 'grab') {
+      if(ctype1 == 'grab') {
         context.code = 'GrabSave';
       }
-      else if(ctype == 'uber') {
+      else if(ctype1 == 'uber') {
         context.code = 'UberSave';
       }
-      else if(ctype == 'comfort') {
+      else if(ctype1 == 'comfort') {
         context.code = 'ComfortSave';
       }
       
-      context.coupon_type = ctype;
+      context.coupon_type = ctype1;
       return resolve(context);
     });
    

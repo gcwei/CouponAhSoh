@@ -148,6 +148,15 @@ app.use(({method, url}, rsp, next) => {
   });
   next();
 });
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+// Server index page
+app.get("/", function (req, res) {
+  res.send("Deployed!");
+});
+
 //app.use(bodyParser.json({ verify: verifyRequestSignature }));
 
 // Webhook setup
@@ -165,7 +174,7 @@ app.post("/webhook", function (req, res) {
   // Parse the Messenger payload
   // See the Webhook reference
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
-  console.log('data: yo1');
+  
   //const data = req.body;
   console.log('data:' + req.body);
   

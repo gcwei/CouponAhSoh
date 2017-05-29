@@ -105,6 +105,10 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
+const grab = {};
+const uber = {};
+const comfort = {};
+
 // Our bot actions
 const actions = {
   send({sessionId}, {text}) {
@@ -131,8 +135,42 @@ const actions = {
       return Promise.resolve()
     }
   },
+  findcoupon({entities, context}) {
+    return new Promise(function(resolve, reject) {
+      const ctype = entities['coupon_type'];
+      const ctype1 = firstEntityValue(entities, 'coupon_type');
+      
+      console.log('ctype:' + ctype + ' | ctype1: ' + ctype1);
+      
+      if(ctype == 'grab') {
+        context.code = 'GrabSave';
+      }
+      else if(ctype == 'uber') {
+        context.code = 'UberSave';
+      }
+      else if(ctype == 'comfort') {
+        context.code = 'ComfortSave';
+      }
+      
+      context.coupon_type = ctype;
+      return resolve(context);
+    });
+   
+  },
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
+};
+
+const firstEntityValue = (entities, entity) => {
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  return typeof val === 'object' ? val.value : val;
 };
 
 // Setting up our bot

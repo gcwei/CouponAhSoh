@@ -193,7 +193,7 @@ app.post("/webhook", function (req, res) {
           // We retrieve the user's current session, or create one if it doesn't exist
           // This is needed for our bot to figure out the conversation history
 
-          const sessionid = findOrCreateSession(sender);
+          const sessionId = findOrCreateSession(sender);
 
           // We retrieve the message content
           const {text, attachments} = event.message;
@@ -208,8 +208,8 @@ app.post("/webhook", function (req, res) {
             // Let's forward the message to the Wit.ai Bot Engine
             // This will run all actions until our bot has nothing left to do
             
-            console.log('whats the fbid: ' +  sessions[sessionid].fbid);
-            console.log('whats the context: ' + sessions[sessionid].context);
+            console.log('whats the fbid: ' +  sessions[sessionId].fbid);
+            console.log('whats the context: ' + sessions[sessionId].context);
             
             wit.runActions(
               sessionId, // the user's current session

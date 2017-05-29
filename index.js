@@ -85,6 +85,8 @@ const sessions = {};
 
 const findOrCreateSession = (fbid) => {
   let sessionId;
+  
+  console.log('findOrCreateSession fbid: ' + fbid);
   // Let's see if we already have a session for the user fbid
   Object.keys(sessions).forEach(k => {
     if (sessions[k].fbid === fbid) {
@@ -93,11 +95,12 @@ const findOrCreateSession = (fbid) => {
     }
   });
   if (!sessionId) {
-    // No session found for user fbid, let's create a new one
+     // No session found for user fbid, let's create a new one
     sessionId = new Date().toISOString();
     sessions[sessionId] = {fbid: fbid, context: {}};
   }
-  return sessionId;
+  
+  return sessions;
 };
 
 // Our bot actions
@@ -162,9 +165,12 @@ app.post('/webhook', (req, res) => {
   // Parse the Messenger payload
   // See the Webhook reference
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
+  console.log('data: yo1');
   const data = req.body;
-
+  console.log('data: yo2');
+  
   if (data.object === 'page') {
+    console.log('data: yo3');
     data.entry.forEach(entry => {
       entry.messaging.forEach(event => {
         if (event.message && !event.message.is_echo) {
@@ -174,8 +180,9 @@ app.post('/webhook', (req, res) => {
 
           // We retrieve the user's current session, or create one if it doesn't exist
           // This is needed for our bot to figure out the conversation history
+          console.log('data: yo9');
           const sessionId = findOrCreateSession(sender);
-
+          console.log('data: yo10');
           // We retrieve the message content
           const {text, attachments} = event.message;
 

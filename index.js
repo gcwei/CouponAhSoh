@@ -91,12 +91,14 @@ const findOrCreateSession = (fbid) => {
   Object.keys(sessions).forEach(k => {
     if (sessions[k].fbid === fbid) {
       // Yep, got it!
+      console.log('got it: ' + sessionId);
       sessionId = k;
     }
   });
   if (!sessionId) {
      // No session found for user fbid, let's create a new one
     sessionId = new Date().toISOString();
+    console.log('create new sessions: ' + sessionId);
     sessions[sessionId] = {fbid: fbid, context: {}};
   }
   
@@ -179,23 +181,22 @@ app.post("/webhook", function (req, res) {
   console.log('data:' + req.body);
   
   if (req.body.object == "page") {
-    console.log('data: yo3');
     
     req.body.entry.forEach(entry => {
-      console.log('data: yo5');
+
       entry.messaging.forEach(event => {
-        console.log('data: yo6');
+
         if (event.message && !event.message.is_echo) {
-          console.log('data: yo7');
+
           // Yay! We got a new message!
           // We retrieve the Facebook user ID of the sender
           const sender = event.sender.id;
 
           // We retrieve the user's current session, or create one if it doesn't exist
           // This is needed for our bot to figure out the conversation history
-          console.log('data: yo9');
+
           const sessionId = findOrCreateSession(sender);
-          console.log('data: yo10');
+
           // We retrieve the message content
           const {text, attachments} = event.message;
 
@@ -206,9 +207,12 @@ app.post("/webhook", function (req, res) {
             .catch(console.error);
           } else if (text) {
             // We received a text message
-            console.log('data: yo11');
             // Let's forward the message to the Wit.ai Bot Engine
             // This will run all actions until our bot has nothing left to do
+            
+            console.log('whats the sessionId: ' + sessionId);
+            console.log('whats the sessions[sessionId].context: ' + sessions[sessionId].context);
+            
             wit.runActions(
               sessionId, // the user's current session
               text, // the user's message

@@ -102,7 +102,7 @@ const findOrCreateSession = (fbid) => {
     sessions[sessionId] = {fbid: fbid, context: {}};
   }
   
-  return sessions;
+  return sessionId;
 };
 
 // Our bot actions

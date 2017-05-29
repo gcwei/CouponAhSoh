@@ -91,8 +91,8 @@ const findOrCreateSession = (fbid) => {
   Object.keys(sessions).forEach(k => {
     if (sessions[k].fbid === fbid) {
       // Yep, got it!
-      console.log('got it: ' + sessionId);
       sessionId = k;
+      console.log('got it: ' + sessionId.fbid + ' context: ' + sessionId.context);
     }
   });
   if (!sessionId) {
@@ -210,8 +210,8 @@ app.post("/webhook", function (req, res) {
             // Let's forward the message to the Wit.ai Bot Engine
             // This will run all actions until our bot has nothing left to do
             
-            console.log('whats the sessionId: ' + sessionId);
-            console.log('whats the sessions[sessionId].context: ' + sessions[sessionId].context);
+            console.log('whats the fbid: ' +  sessions[sessionId].fbid);
+            console.log('whats the context: ' + sessions[sessionId].context);
             
             wit.runActions(
               sessionId, // the user's current session

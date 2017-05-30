@@ -159,7 +159,7 @@ const actions = {
   findcoupon({entities, context}) {
     return new Promise(function(resolve, reject) {
       const ctype1 = firstEntityValue(entities, 'coupon_type');
-      const myCode;
+      let myCode = '';
       const huh = 0;
       
       console.log('ctype1: ' + ctype1);

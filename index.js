@@ -159,22 +159,19 @@ const actions = {
   findcoupon({entities, context}) {
     return new Promise(function(resolve, reject) {
       const ctype1 = firstEntityValue(entities, 'coupon_type');
-      const myCode = '';
+      const myCode;
       const huh = 0;
       
       console.log('ctype1: ' + ctype1);
       
       if(ctype1 == 'grab') {
         myCode = grab[Math.floor(Math.random() * grab.length)];
-        delete context.huh;
       }
       else if(ctype1 == 'uber') {
         myCode = uber[Math.floor(Math.random() * uber.length)];
-        delete context.huh;
       }
       else if(ctype1 == 'comfort') {
         myCode = comfort[Math.floor(Math.random() * comfort.length)];
-        delete context.huh;
       }
       else {
         huh = 1;

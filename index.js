@@ -105,9 +105,9 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
-const grab = ['GrabSave'];
-const uber = ['UberSave'];
-const comfort = ['ComfortSave'];
+const grab = ['JG5','MAY30','TRYJG','FREEHITCH','TAKE3','PROSHARE'];
+const uber = ['OCBCUBER20','5OFF30','SC2016SG','ALLTRIPS','4WEEKEND'];
+const comfort = [];
 
 const noproblem = [
   'no problemo',

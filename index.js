@@ -162,7 +162,7 @@ const actions = {
       const myCode = '';
       const huh = 0;
       
-      console.log('ctype:' + ctype + ' | ctype1: ' + ctype1);
+      console.log('ctype1: ' + ctype1);
       
       if(ctype1 == 'grab') {
         myCode = grab[Math.floor(Math.random() * grab.length)];
@@ -210,7 +210,32 @@ const actions = {
   },
   logBadCode({entities, context}) {
     return new Promise(function(resolve, reject) {
+      const ctype1 = firstEntityValue(entities, 'coupon_type');
+      const code = firstEntityValue(entities, 'code');
       
+      console.log('code: ' + code);
+      
+      if(ctype1 == 'grab') {
+        grab.forEach(function(entry, ind) {
+            if(entry == code) {
+              grab.splice(ind, 1);
+            }
+        });
+      }
+      else if(ctype1 == 'uber') {
+        uber.forEach(function(entry, ind) {
+            if(entry == code) {
+              uber.splice(ind, 1);
+            }
+        });
+      }
+      else if(ctype1 == 'comfort') {
+        comfort.forEach(function(entry, ind) {
+            if(entry == code) {
+              comfort.splice(ind, 1);
+            }
+        });
+      }
       
       context.noproblem = thankyou[Math.floor(Math.random() * thankyou.length)];
       return resolve(context);

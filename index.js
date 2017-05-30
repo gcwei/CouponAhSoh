@@ -171,6 +171,7 @@ const actions = {
       context.noproblem = thankyou[Math.floor(Math.random() * thankyou.length)];
       return resolve(context);
     });
+  },
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
 };

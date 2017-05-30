@@ -105,11 +105,11 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
-const grab = {};
-const uber = {};
-const comfort = {};
+const grab = ['GrabSave'];
+const uber = ['UberSave'];
+const comfort = ['ComfortSave'];
 
-const thankyou = [
+const noproblem = [
   'no problemo',
   'mei wen ti',
   'welcome',
@@ -117,6 +117,17 @@ const thankyou = [
   'bu ke qi',
   'wo de pleasure',
   'aunty very happy to help'
+];
+
+const thankyou = [
+  'thank you ah',
+  'thank you ni',
+  'xie xie',
+  'terima kasih',
+  'arigato',
+  'arigatou gozaimasu',
+  'ni so helpful to me',
+  'gam sia'
 ];
 
 // Our bot actions
@@ -147,27 +158,60 @@ const actions = {
   },
   findcoupon({entities, context}) {
     return new Promise(function(resolve, reject) {
-      const ctype = entities['coupon_type'];
       const ctype1 = firstEntityValue(entities, 'coupon_type');
+      const myCode = '';
+      const huh = 0;
       
       console.log('ctype:' + ctype + ' | ctype1: ' + ctype1);
       
       if(ctype1 == 'grab') {
-        context.code = 'GrabSave';
+        myCode = grab[Math.floor(Math.random() * grab.length)];
+        delete context.huh;
       }
       else if(ctype1 == 'uber') {
-        context.code = 'UberSave';
+        myCode = uber[Math.floor(Math.random() * uber.length)];
+        delete context.huh;
       }
       else if(ctype1 == 'comfort') {
-        context.code = 'ComfortSave';
+        myCode = comfort[Math.floor(Math.random() * comfort.length)];
+        delete context.huh;
+      }
+      else {
+        huh = 1;
       }
       
-      context.coupon_type = ctype1;
+      if(myCode == '' && huh == 1) {
+        delete context.code;
+        delete context.nocode;
+        delete context.coupon_type;
+        context.huh = 1;
+      }
+      else if (myCode == '') {
+        delete context.code;
+        delete context.huh;
+        context.nocode = 1;
+        context.coupon_type = ctype1;
+      }
+      else {
+        delete context.nocode;
+        delete context.huh;
+        context.code = myCode;
+        context.coupon_type = ctype1;
+      }
+
       return resolve(context);
     });
   },
   welcome({entities, context}) {
     return new Promise(function(resolve, reject) {
+      context.noproblem = noproblem[Math.floor(Math.random() * noproblem.length)];
+      return resolve(context);
+    });
+  },
+  logBadCode({entities, context}) {
+    return new Promise(function(resolve, reject) {
+      
+      
       context.noproblem = thankyou[Math.floor(Math.random() * thankyou.length)];
       return resolve(context);
     });

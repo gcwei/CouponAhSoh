@@ -109,7 +109,7 @@ const grab = {};
 const uber = {};
 const comfort = {};
 
-const thankyou = {
+const thankyou = [
   'no problemo',
   'mei wen ti',
   'welcome',
@@ -117,7 +117,7 @@ const thankyou = {
   'bu ke qi',
   'wo de pleasure',
   'aunty very happy to help'
-};
+];
 
 // Our bot actions
 const actions = {

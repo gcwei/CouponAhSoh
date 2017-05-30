@@ -237,7 +237,7 @@ const actions = {
         });
       }
       
-      context.noproblem = thankyou[Math.floor(Math.random() * thankyou.length)];
+      context.thankyou = thankyou[Math.floor(Math.random() * thankyou.length)];
       return resolve(context);
     });
   },

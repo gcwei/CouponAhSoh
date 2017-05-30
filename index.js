@@ -109,6 +109,16 @@ const grab = {};
 const uber = {};
 const comfort = {};
 
+const thankyou = {
+  'no problemo',
+  'mei wen ti',
+  'welcome',
+  'Sama sama',
+  'bu ke qi',
+  'wo de pleasure',
+  'aunty very happy to help'
+};
+
 // Our bot actions
 const actions = {
   send({sessionId}, {text}) {
@@ -155,8 +165,12 @@ const actions = {
       context.coupon_type = ctype1;
       return resolve(context);
     });
-   
   },
+  welcome({entities, context}) {
+    return new Promise(function(resolve, reject) {
+      context.noproblem = thankyou[Math.floor(Math.random() * thankyou.length)];
+      return resolve(context);
+    });
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
 };
